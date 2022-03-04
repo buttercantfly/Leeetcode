@@ -6,7 +6,7 @@
 
 class Solution {
 public:
-    int maxProduct(vector<int>& nums) {
+    int maxProduct(std::vector<int>& nums) {
         int maxP = 0;
         int tmp;
         for(int i =0;i < nums.size();i++) {
