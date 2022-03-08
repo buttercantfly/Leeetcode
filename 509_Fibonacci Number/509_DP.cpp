@@ -1,14 +1,17 @@
 class Solution {
 public:
-    // 時間不快 因為有更換儲存空間的操作(直接用dp[]會比較快)
-    int fib(int n) {
-        if(n == 0) return 0;
+    int climbStairs(int n) {
+        // DP
+        // 想法1: 每多加入一個長度則有規則的增加方法數?
+        // => 規律 n = n-1 + n-2?
+        // 其實就fibonacci
+        if(n == 2) return 2;
         if(n == 1) return 1;
         
-        int n_2 = 0;
-        int n_1 = 1;
+        int n_2 = 1;
+        int n_1 = 2;
         int f;
-        for(int i = 2; i <= n;i++){
+        for(int i = 2; i < n;i++){
             f = n_2 + n_1;
             n_2 = n_1;
             n_1 = f;
