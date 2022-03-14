@@ -30,6 +30,7 @@ public:
         
         int  repeat    = 0;
         vector<int> repeat_len;
+
         int  cur_rep   = 1;
         char pre_char  = ' ';
 
