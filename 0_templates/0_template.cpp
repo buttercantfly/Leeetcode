@@ -7,6 +7,7 @@ using namespace std;
 
 /*
 note: 
+    /**為所有子資料夾及裡面的子資料夾 /*為所有文件
     
 improve:
     
