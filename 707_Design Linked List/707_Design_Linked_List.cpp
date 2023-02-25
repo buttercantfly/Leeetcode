@@ -106,11 +106,11 @@ public:
     }
 };
 
-
-
-
 // test function
 int main(){
+
+    int index = 1;
+    int val = 10;
 
     // Your MyLinkedList object will be instantiated and called as such:
     MyLinkedList* obj = new MyLinkedList();
@@ -119,17 +119,6 @@ int main(){
     obj->addAtTail(val);
     obj->addAtIndex(index,val);
     obj->deleteAtIndex(index);
-    
-    // given values
-    vector<int> nums = {0};
-    int target = 0;
-
-    // call solution function
-    Solution s;
-    int ans = s.function("arguments");
-
-    // print out answers 
-    cout << ans;
 
     return 0;
 }
