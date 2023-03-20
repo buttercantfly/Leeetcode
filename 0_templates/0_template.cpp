@@ -21,12 +21,11 @@ int main(){
     vector<int> nums = {0};
     int target = 0;
     string s = "";
-    string t = "";
 
     // call solution function
     /*
-    Solution s;
-    int ans = s.function("arguments");
+    Solution sol;
+    int ans = sol.function("arguments");
 
     // print out answers 
     cout << ans;
