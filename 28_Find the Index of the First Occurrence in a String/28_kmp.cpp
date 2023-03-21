@@ -81,6 +81,14 @@ public:
                     count = prefix_table[j-1];
                     j = prefix_table[j-1]; // 將j移到對應的prefix index
                     tmp = i-j; // tmp同時往前移
+
+                    // ***********問題：此跳會導致少檢查i位置上與0位置的比較**********
+                    if (needle[tmp+j] != needle[j] && needle[i] == needle[0]) // 若跳過去還是錯誤，則檢查是否可以從頭計算
+                    {
+                        count = 0;
+                        tmp   = tmp + j;
+                        j     = 0;
+                    }
                 }
             }
         }
@@ -108,8 +116,8 @@ public:
 // test function
 int main(){
     // given values
-    string haystack = "ababcaababcaabc";
-    string needle = "ababcaabc";
+    string haystack = "ababababababaababababababaababababababa";
+    string needle = "ababababababaababababababaababababababa";
 
     // call solution function
     
