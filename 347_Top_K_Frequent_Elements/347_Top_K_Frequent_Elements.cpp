@@ -10,6 +10,7 @@ using namespace std;
 question:
     Given an integer array nums and an integer k, return the k most frequent elements. 
     You may return the answer in any order.
+
 note: 
     1. unodered_map: key為 num 每次丟進去 value += 1
     => O(n)
@@ -18,6 +19,32 @@ note:
     => 維持只有六個elements
 
     how to implement?
+    => 於c++內請使用priority_queue
+
+    priority_queue<int>
+    priority_queue<int, vector<int>, greater<int>>
+    priority_queue<T, vector<T>, cmp<T>>
+    
+    <T> and cmp example:
+    => 建一個新的cmp並用operator overload
+    => 回傳bool值　true則b比a優先
+
+    => 範例：偶數的優先權比奇數的大、且數字越小優先權越大
+    template <typename T>
+    class cmp {
+        public: 
+            bool operator()(T a, T b) {
+                if (a % 2 == 1 && b % 2 == 0) {
+                    return true;
+                }
+                else if (a % 2 == 0 && b % 2 ==1) {
+                    return false;
+                }
+                else {
+                    return a > b;
+                }
+            }
+    };
 
 improve:
     
@@ -40,19 +67,6 @@ public:
             int c = p.second;
         }
         
-    }
-};
-
-class six_minheap {
-private:
-    int heap[6] = {INT_MAX};
-public:
-    void extractMin_and_insertKey(int k) {
-        heap[0];
-    }
-
-    int getMin() {
-        return heap[0];
     }
 };
 
