@@ -17,7 +17,7 @@ note:
     => O(n)
 
     2. min_heap
-    => 維持只有六個elements
+    => 維持只有k個elements
 
     how to implement?
     => 於c++內請使用priority_queue

@@ -1,0 +1,20 @@
+https://typecoder.blogspot.com/2017/12/visual-studio-code.html
+
+區塊註解
+ctrl + k + c
+取消註解
+ctrl + k + u
+
+單行/區塊上下快速換行
+alt + 上or下
+alt + 上or下 + shift => 快速複製
+
+自動整理程式碼
+alt + shift + f
+
+同樣字某範圍同時修改
+ctrl + d (不停按)
+ctrl + f 是整份文件
+
+找變數定義
+alt + f12
