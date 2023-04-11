@@ -12,3 +12,9 @@ binary tree traversal 邏輯學好之後可刷底下的十題：
 111.二叉樹的最小深度
 
 請開刷 <3
+
+Stack是用來幹嘛的?
+A stack is a useful data structure to convert recursive code into iterative code. 
+In recursive code, the compiler uses the call stack to convert it into iterative code.
+=> 其實iterative code就是把recursive在
+記憶體中的操作給轉換到code裡面(memory stack)

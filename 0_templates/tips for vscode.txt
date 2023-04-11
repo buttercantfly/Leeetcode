@@ -13,8 +13,14 @@ alt + 上or下 + shift => 快速複製
 alt + shift + f
 
 同樣字某範圍同時修改
-ctrl + d (不停按)
+ctrl + d (不停按) => 也可以用來選一個字
 ctrl + f 是整份文件
 
 找變數定義
 alt + f12
+
+scroll page
+ctrl + 上or下
+
+自動拆行檢視
+alt + z (不會對實際文黨產生影響)
