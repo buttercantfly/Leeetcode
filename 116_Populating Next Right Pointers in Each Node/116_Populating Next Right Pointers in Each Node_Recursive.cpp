@@ -47,7 +47,7 @@ public:
             left->next = right;
             right = right->left; // 可以是null->left?
             // 測資沒側到問題?
-            // *************題目給的是 "perfect binary tree" ****************************
+            // ***************題目給的是 "perfect binary tree" ****************************
             // right = null->left?
             // null access?
         }
