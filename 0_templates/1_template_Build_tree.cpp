@@ -8,12 +8,7 @@ using namespace std;
 
 /*
 question:
-    how to create a binary tree from a vector(array)?
-
-note: 
-    由於是題目給的vector所以不是preorder/ inorder/ postorder
-    => 不需要有找root的步驟
-    => 直接用array數值去找
+note:
     
 improve:
     
@@ -30,6 +25,9 @@ struct TreeNode {
 };
 
 // Class Solution copy here
+
+
+// test function
 class Builder
 {
 private:
@@ -53,7 +51,6 @@ void preorder_print(TreeNode* root){
     if(root->right) preorder_print(root->right);
 }
 
-// test function
 int main(){
 
     vector<int> vec = {1,2,3,4,5,6,7};
