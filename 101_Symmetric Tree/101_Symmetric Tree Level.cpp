@@ -24,6 +24,8 @@ note:
 
         把null當作int max呢? (node val沒那麼大)
     
+    Problem 100. 和 572. 幾乎一樣的概念 可以衝一下題樹
+
 improve:
     
 */
