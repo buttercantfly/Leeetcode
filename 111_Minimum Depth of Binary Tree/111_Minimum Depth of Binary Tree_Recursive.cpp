@@ -34,8 +34,10 @@ public:
     }
 
     int minD(TreeNode* root) {
-        if (root == nullptr) return INT_MAX/2;
-        else if (root->left == nullptr && root->right == nullptr) return 1;
+        if (root == nullptr) return INT_MAX/2; 
+        // 如果丟null 進minD 意味這邊不是leaf => 排除在所有的最小路徑中
+        // 這邊使用的是INT_MAX/2 (/2是怕overflow的狀況)
+        else if (root->left == nullptr && root->right == nullptr) return 1; // 到葉子回傳
         
         return min(minD(root->left)+1, minD(root->right)+1);
     }

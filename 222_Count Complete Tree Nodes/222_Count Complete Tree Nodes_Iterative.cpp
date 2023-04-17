@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 #include <deque>
-#include <queue>
 #include <math.h>
 #include <algorithm>
 using namespace std;
@@ -10,21 +9,15 @@ using namespace std;
 /*
 question:
 note:
-    兩種解法
-    1. 分左右子樹 
-        左子樹 中左右 
-        右子樹 中右左
-        im a fukcing genious
-    
-    2. level traversal
-        去看每一層是不是都互為相反順序
-        = = 不可行
-        如果遇到 null 會出事
-        如下 第三層 n 3 n 3 非對稱，但level會視為 3 3
-        [1,2,2,null,3,null,3]
+    這邊用 complete binary tree 的特性去思考
+    => complete 是由 full binary trees去構成的
+    => 一直call subtree確認是不是full binary tree
+    => 再把所有subtree node加總
 
-        把null當作int max呢? (node val沒那麼大)
-    
+    when to stop?
+    single node or full binary tree
+
+
 improve:
     
 */
@@ -42,16 +35,24 @@ struct TreeNode {
 // Class Solution copy here
 class Solution {
 public:
-    bool isSymmetric(TreeNode* root) {
-        if (!root) return true;
-        return isSymmetric_subtree(root->left, root->right);
-    }
+    int countNodes(TreeNode* root) {
+        if (!root) return 0;
+        
+        int depth = 1;
+        TreeNode* cur_l = root;
+        TreeNode* cur_r = root;
+        while (cur_l->left)
+        {
+            cur_l = cur_l->left;
+            depth++;
 
-    bool isSymmetric_subtree(TreeNode* left, TreeNode* right) {
-        if (!left && !right) return true; // 兩個都是null
-        else if (!left || !right) return false; // 其中一個是null
-        else if (left->val != right->val) return false;
-        else return (isSymmetric_subtree(left->left, right->right) && isSymmetric_subtree(left->right, right->left));
+            if(!cur_r->right) 
+                return 1 + countNodes(root->left) + countNodes(root->right); // recursive
+            else cur_r = cur_r->right;
+            
+            if (!cur_l->left) return pow(2, depth)-1; // full tree
+        }
+        return 1;  // single node
     }
 };
 
@@ -63,9 +64,7 @@ private:
 public:
     TreeNode* build_tree(vector<int>& vec, int position)
     {
-        if (vec[position-1] == INT_MIN) return nullptr;
         if(position > vec.size()) return nullptr;
-
         TreeNode* root = new TreeNode(vec[position - 1]);
         root->left  = build_tree(vec, position*2);     
         root->right = build_tree(vec, position*2+1);
@@ -83,12 +82,10 @@ void preorder_print(TreeNode* root){
 
 int main(){
 
-    vector<int> vec = {1,2,2,3,3,3,3};
+    vector<int> vec = {1,2,3,4,5,6,7};
     Builder builder;
     TreeNode* root = builder.build_tree(vec, 1);
-    Solution sol;
-    cout << sol.isSymmetric(root) << endl;
-
+    
     preorder_print(root); 
 
     return 0;

@@ -1,2 +1,2 @@
-101 還少寫左右子樹traversal的作法
+101 還少寫左右子樹traversal的作法 done
 516 還沒寫 等DP開始
