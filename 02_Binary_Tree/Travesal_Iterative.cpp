@@ -45,6 +45,9 @@ struct TreeNode {
 };
 
 // Class Solution copy here
+
+// pop 中 並 push 其 右左
+// 中 左(中 左(中左右)右)) 右
 class PreorderSolution {
 public:
     vector<int> PreorderTraversal(TreeNode* root) {
@@ -57,17 +60,17 @@ public:
         stk.push(root);
         while (!stk.empty())
         {
-            node = stk.top();
+            node = stk.top(); // 中 traveled
             ret.push_back(node->val);
             stk.pop();
-            if (node->left) stk.push(node->left);
-            if (node->right) stk.push(node->right);
+            if (node->right) stk.push(node->right); // 右
+            if (node->left) stk.push(node->left); // 左
         }
         return ret;
     }
 };
 
-
+// 一直找最左去做處理
 class InorderSolution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
@@ -77,12 +80,14 @@ public:
         while (cur != NULL || !st.empty()) {
             if (cur != NULL) { // 指针来访问节点，访问到最底层
                 st.push(cur); // 将访问的节点放进栈
-                cur = cur->left;                // 左
+                cur = cur->left;                // 讓stack一路堆到左邊底，這裡不算traveled
             } else {
-                cur = st.top(); // 从栈里弹出的数据，就是要处理的数据（放进result数组里的数据）
+                cur = st.top(); // 這邊也可以說成是 "中" (相對於上一輪的左)
+                // 从栈里弹出的数据，就是要处理的数据（放进result数组里的数据）
                 st.pop();
-                result.push_back(cur->val);     // 中
-                cur = cur->right;               // 右
+                result.push_back(cur->val);     // 左 此處才是真正的traveled
+                // => 整個演算法其實都一直在處理最左
+                cur = cur->right;               // 右 
             }
         }
         return result;
