@@ -30,36 +30,40 @@ struct TreeNode {
 
 // Class Solution copy here
 class Solution {
-public:
-    bool hasPathSum(TreeNode* root, int targetSum) {
-        if (!root) return false;
-        stack<TreeNode*> n_stk;
-        stack<int> s_stk;
-        n_stk.push(root);
-        s_stk.push(root->val);
-
-        while (!n_stk.empty())
+private:
+    vector<vector<int>> ret;
+    vector<int> path;
+    // count:剩下的target sum
+    void traversal(TreeNode* root, int count) {
+        if (!root->left && !root->right && count == 0)
         {
-            TreeNode* cur = n_stk.top();
-            int cur_s = s_stk.top();
-            n_stk.pop();
-            s_stk.pop();
-
-            if (!cur->left && !cur->right && cur_s == targetSum) return true;
-            
-            if (cur->right)
-            {
-                n_stk.push(cur->right);
-                s_stk.push(cur_s + cur->right->val);
-            }
-            if (cur->left)
-            {
-                n_stk.push(cur->left);
-                s_stk.push(cur_s + cur->left->val);
-            }
+            ret.push_back(path);
+            return;
         }
-        
-        return false;
+        if (!root->left && !root->right) return;
+
+        if (root->left)
+        {
+            path.push_back(root->left->val);
+            traversal(root->left, count - root->left->val);
+            path.pop_back(); // 記得回朔
+        }
+        if (root->right)
+        {
+            path.push_back(root->right->val);
+            traversal(root->right, count - root->right->val);
+            path.pop_back(); // 記得回朔
+        }
+    }
+
+public:
+    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+        ret.clear();
+        path.clear();
+        if (!root) return ret;
+        path.push_back(root->val);
+        traversal(root, targetSum - root->val);
+        return ret;
     }
 };
 
