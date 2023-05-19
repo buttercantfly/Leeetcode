@@ -9,11 +9,9 @@ using namespace std;
 /*
 question:
 note:
-    其實就照題意寫(找max沒效率?)
     
 improve:
-    如果先排序呢? 想不到怎做(因為index與)
-
+    
 */
 
 // Definition for a binary tree node.
@@ -29,22 +27,20 @@ struct TreeNode {
 // Class Solution copy here
 class Solution {
 public:
-    TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
-        return construct(nums, 0, nums.size());
-    }
-
-    TreeNode* construct(vector<int>& nums, int begin, int end) {
-        if (begin >= end) return nullptr;
-        
-        int level_max = begin;
-        for (int i = begin; i < end; i++)
+    TreeNode* searchBST(TreeNode* root, int val) {
+        TreeNode* cur = root;
+        while(true)
         {
-            if (nums[i] > nums[level_max]) level_max = i;
+            if (val == cur->val) return cur;
+            else if(val < cur->val) {
+                if (cur->left) cur = cur->left;
+                else return nullptr;
+            }
+            else if(val > cur->val) {
+                if (cur->right) cur = cur->right;
+                else return nullptr;
+            }
         }
-        TreeNode* cur = new TreeNode(nums[level_max]);
-        cur->left  = construct(nums, begin, level_max);
-        cur->right = construct(nums, level_max + 1, end);
-        return cur;
     }
 };
 

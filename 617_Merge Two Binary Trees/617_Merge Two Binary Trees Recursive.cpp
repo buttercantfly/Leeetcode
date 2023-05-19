@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <deque>
+#include <stack>
 #include <math.h>
 #include <algorithm>
 using namespace std;
@@ -9,11 +10,10 @@ using namespace std;
 /*
 question:
 note:
-    其實就照題意寫(找max沒效率?)
-    
-improve:
-    如果先排序呢? 想不到怎做(因為index與)
+    recursive?
 
+improve:
+    
 */
 
 // Definition for a binary tree node.
@@ -29,22 +29,20 @@ struct TreeNode {
 // Class Solution copy here
 class Solution {
 public:
-    TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
-        return construct(nums, 0, nums.size());
+    TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {
+        if (!root1) return root2;
+        if (!root2) return root1;
+        merger(root1, root2);
+        return root1;
     }
 
-    TreeNode* construct(vector<int>& nums, int begin, int end) {
-        if (begin >= end) return nullptr;
-        
-        int level_max = begin;
-        for (int i = begin; i < end; i++)
-        {
-            if (nums[i] > nums[level_max]) level_max = i;
-        }
-        TreeNode* cur = new TreeNode(nums[level_max]);
-        cur->left  = construct(nums, begin, level_max);
-        cur->right = construct(nums, level_max + 1, end);
-        return cur;
+    void merger(TreeNode* root1, TreeNode* root2) {
+        root1->val+=root2->val;
+        if (root1->right && root2->right) merger(root1->right, root2->right); 
+        else if(root2->right) root1->right = root2->right;
+
+        if (root1->left && root2->left) merger(root1->left, root2->left);
+        else if(root2->left) root1->left = root2->left;
     }
 };
 
