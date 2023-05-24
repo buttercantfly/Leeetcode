@@ -31,21 +31,25 @@ struct TreeNode {
 // TLE
 class Solution {
 public:
+    vector<int> vec;
+
     bool isValidBST(TreeNode* root) {
-        stack<TreeNode*> stk;
-        TreeNode* cur = root;
-        TreeNode* pre = NULL; // 用來比較的node
-        while (cur|| !stk.empty()) {
-            if (cur) {
-                stk.push(cur);
-                cur = cur->left;  // 左
-            } else { // 進到else就會pop一個 => 可以存pre作為比較
-                cur = stk.top();  // 中
-                stk.pop();
-                if (pre != NULL && cur->val <= pre->val) return false; // 確認節點是否符合規則
-                pre = cur; //保存前一个访问的结点
-                cur = cur->right;  // 右
-            }
+        traversal(root);
+
+        return testify();
+    }
+
+    void traversal(TreeNode* root) {
+        if (!root) return;
+        traversal(root->left);
+        vec.push_back(root->val);
+        traversal(root->right);
+    }
+
+    bool testify() {
+        for (int i = 0; i < vec.size()-1; i++)
+        {
+            if (vec[i] >= vec[i+1]) return false;
         }
         return true;
     }
