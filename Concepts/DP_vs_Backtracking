@@ -1,0 +1,9 @@
+Say that we have a solution tree, whose leaves are the solutions for the original problem, and whose non-leaf nodes are the suboptimal solutions for part of the problem. We try to traverse the solution tree for the solutions.
+
+Dynamic programming is more like BFS: 
+we find all possible suboptimal solutions represented the non-leaf nodes, and only grow the tree by one layer under those non-leaf nodes.
+
+Backtracking is more like DFS: 
+we grow the tree as deep as possible and prune the tree at one node if the solutions under the node are not what we expect.
+
+Then there is one inference derived from the aforementioned theory: Dynamic programming usually takes more space than backtracking, because BFS usually takes more space than DFS (O(N) vs O(log N)). In fact, dynamic programming requires memorizing all the suboptimal solutions in the previous step for later use, while backtracking does not require that.
