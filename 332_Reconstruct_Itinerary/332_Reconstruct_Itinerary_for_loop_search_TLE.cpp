@@ -20,8 +20,17 @@ note:
         2-2. for 迴圈走過所有該機場機票
             3-1......
     
+    problem:
+        1. NlogN sort
+        2. worse N^2 traversal time (N + N-1 + N-2 + ... + 1)
 
 improve:
+    使用map進行"自動排序"
+    => insert time complexity O(1)
+    所以整體sort time為 O(N)
+    
+    而在提取(search)航班時也變為O(1)
+    所以整體traversal也壓為O(N)
     
 */
 
