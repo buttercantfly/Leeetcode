@@ -6,7 +6,7 @@
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
             "args": [],
-            "stopAtEntry": false, // 將此從false改成true (變成不用設breakpoint，直接在開始時就先停住)
+            "stopAtEntry": true, // 將此從false改成true (變成不用設breakpoint，直接在開始時就先停住)
             "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,
