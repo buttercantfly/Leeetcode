@@ -29,11 +29,21 @@ int main(){
     cin >> bdry[0] >> bdry[1];
     int x;
     int y;
+    char init_f;
     int face;
     bool isLost = false;
+
+    int board[bdry[0]][bdry[1]] = {0};
+
     string str;
-    while (cin >> x >> y >> face >> str)
+    while (cin >> x >> y >> init_f >> str)
     {
+        if      (init_f == 'E') face = 0;
+        else if (init_f == 'S') face = 1;
+        else if (init_f == 'W') face = 2;
+        else if (init_f == 'N') face = 3;
+        else return -1;
+        
         for (char i:str)
         {
             if (i == 'L')
@@ -48,20 +58,30 @@ int main(){
             }
             else if (i == 'F')
             {
+                int xp = x;
+                int yp = y;
                 /* code */
                 if (face == 0) x++;
                 else if (face == 1) y--;
                 else if (face == 2) x--;
                 else y++; // need to check if face only = 0/1/2/3
 
+                if ((x>bdry[0] || x<bdry[0] || y>bdry[1] || y<bdry[1])) {
+                    if (board[xp][yp] == 1) continue;
+                    else
+                    {
+                        isLost == true;
+                        board[xp][yp] = 1;
+                        break;
+                    }
+                }
+
+                /*
                 if (x>bdry[0]) x--; 
                 else if(x<bdry[0]) x++;
                 else if(y>bdry[1]) y--;
                 else if(y<bdry[1]) y++;
-                if (x>bdry[0] || x<bdry[0] || y>bdry[1] || y<bdry[1]) {
-                    isLost == true;
-                    break;
-                }
+                */
             }
             else return -1;
         }
