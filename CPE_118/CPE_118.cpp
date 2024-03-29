@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <deque>
+#include <map>
 #include <algorithm>
 using namespace std;
 // note
@@ -21,71 +22,77 @@ using namespace std;
 
 
 // 目前還差棋盤的劃記（如果某處已經產生LOST則該位置忽略LOST動作）
+int board[55][55]; // board for lost information (max size is 55x55)
 
 // test function
 int main(){
-    // given values
-    int bdry[2];
-    cin >> bdry[0] >> bdry[1];
-    int x;
-    int y;
-    char init_f;
-    int face;
+    int bx, by; // board boundary
+    cin >> bx >> by;
+
+    int x, y; // start point 
+    char face; // start facing
+    int intf; // tmp int for facing
+    string str; // actions
+
+    // 讀一個action的過程應該如何比較好?
+    // 1. 判斷為前進還是轉向
+    //      a. 前進則根據當前face去做判斷，根據bx by 檢查是否超出範圍
+    //          a1. 如果沒超出範圍則移動(更改x y)並繼續下個動作
+    //          a2. 若超出則檢查board是否為1(已經有機器掉下去過)
+    //              a21. 若為1則忽略此動作並繼續下個動作
+    //              a22. 若為0則將此處改為1並結束動作回傳LOST
+    //      b. 轉向就直接轉就好(根據LR)
+
+    pair<int,int> dr[4] = {pair<int,int>(1,0),pair<int,int>(0,-1),pair<int,int>(-1,0),pair<int,int>(0,1)}; // ESWN
+    
+    map<char,int> mp_ctoi;
+    map<int, char> mp_itoc;
+    mp_ctoi['E'] = 0; mp_itoc[0] = 'E';
+    mp_ctoi['S'] = 1; mp_itoc[1] = 'S';
+    mp_ctoi['W'] = 2; mp_itoc[2] = 'W';
+    mp_ctoi['N'] = 3; mp_itoc[3] = 'N';
+
     bool isLost = false;
 
-    int board[bdry[0]][bdry[1]] = {0};
-
-    string str;
-    while (cin >> x >> y >> init_f >> str)
+    while (cin >> x >> y >> face >> str)
     {
-        if      (init_f == 'E') face = 0;
-        else if (init_f == 'S') face = 1;
-        else if (init_f == 'W') face = 2;
-        else if (init_f == 'N') face = 3;
-        else return -1;
-        
-        for (char i:str)
+        for (char act:str)
         {
-            if (i == 'L')
+            if (act == 'F')
             {
-                face++;
-                face = face%4;
-            }
-            else if (i == 'R')
-            {
-                face--;
-                face = face%4;
-            }
-            else if (i == 'F')
-            {
-                int xp = x;
-                int yp = y;
-                /* code */
-                if (face == 0) x++;
-                else if (face == 1) y--;
-                else if (face == 2) x--;
-                else y++; // need to check if face only = 0/1/2/3
-
-                if ((x>bdry[0] || x<bdry[0] || y>bdry[1] || y<bdry[1])) {
-                    if (board[xp][yp] == 1) continue;
+                intf = mp_ctoi[face];
+                // out of bound
+                if (x+dr[intf].first  > bx || x+dr[intf].first  < 0 ||
+                    y+dr[intf].second > by || y+dr[intf].second < 0)
+                {
+                    if (board[x][y] == 1) continue;
                     else
                     {
-                        isLost == true;
-                        board[xp][yp] = 1;
+                        board[x][y] = 1;
+                        cout << x << " " << y << " " << face << " LOST" << endl;
+                        isLost = true;
                         break;
                     }
                 }
-
-                /*
-                if (x>bdry[0]) x--; 
-                else if(x<bdry[0]) x++;
-                else if(y>bdry[1]) y--;
-                else if(y<bdry[1]) y++;
-                */
+                // in area
+                else
+                {
+                    x += dr[intf].first;
+                    y += dr[intf].second;
+                }
             }
-            else return -1;
+            else
+            {
+                intf = mp_ctoi[face];
+                if      (act == 'R') intf++;
+                else if (act == 'L') intf--;
+                else return -1;
+                intf = (intf+4) % 4;
+                face = mp_itoc[intf];
+            }
         }
-        cout << x << " " << y << " " << face << endl;
+        if(!isLost) cout << x << " " << y << " " << face << endl;
+        else isLost = false;
     }
 
     return 0;
