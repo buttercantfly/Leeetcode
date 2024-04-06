@@ -3,6 +3,8 @@
 
 using namespace std;
 
+// improve: 可以在讀入string時就先監測最長的長度，這樣就不需要每個for迴圈都檢查一次
+
 int main() {
     vector<string> vec;
     string str;
