@@ -19,37 +19,58 @@ note:
     (i, , j-1) (i,j)    (i,   j+1)
     (i+1, j-1) (i+1, j) (i+1, j+1)
 
+    1 1 1
+    1 0 1
+    1 1 1
+
 improve:
-    
+    用BFS反而比較快?
+    -> back track
+        一路return 回中心?
+
 */
 
 // Class Solution copy here
 class Solution {
 public:
+    void search_nearby(int i, int j, vector<vector<int>>& distances, bool& changed) {
+        // if(distances[i][j] != INT_MAX - 10) return;
+        int origin = distances[i][j];
 
-    bool is_in_matrix(int i, int j, vector<vector<int>>& mat) {
-        return (i < 0)||(j < 0)||(i >= mat.size())||(j >= mat[0].size());
-    }
+        if(i-1 >= 0)                  distances[i][j] = min(distances[i][j], distances[i-1][j]+1);
+        if(i+1 < distances.size())    distances[i][j] = min(distances[i][j], distances[i+1][j]+1);
+        if(j-1 >= 0)                  distances[i][j] = min(distances[i][j], distances[i][j-1]+1);
+        if(j+1 < distances[0].size()) distances[i][j] = min(distances[i][j], distances[i][j+1]+1);
 
-    void find_min_distance(int i, int j, 
-            vector<vector<int>>& mat, vector<vector<int>>& distances) {
-        for (size_t i = 0; i < ; i++)
-        {
-            /* code */
-        }
+        if(distances[i][j] != origin) changed = true;
     }
 
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
         vector<vector<int>> distances = mat;
-        int current_min = 0;
-        for (int i = 0; i < mat.size(); i++)
+
+        for (int i = 0; i < distances.size(); i++)
         {
-            for (int j = 0; j < mat[i].size(); j++)
+            for (int j = 0; j < distances[0].size(); j++)
             {
-                find_min_distance(i,j,mat,distances);
+                if (distances[i][j] == 1) distances[i][j] = INT_MAX - 10;
             }
         }
-        
+
+        bool changed;
+        while (true)
+        {
+            changed = false;
+            for (int i = 0; i < mat.size(); i++)
+            {
+                for (int j = 0; j < mat[0].size(); j++)
+                {
+                    search_nearby(i,j,distances,changed);
+                }
+            }
+            if(!changed) break;
+        }
+
+        return distances;
     }
 };
 
