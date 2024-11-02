@@ -69,16 +69,16 @@ int main(){
     // given values
     vector<int> nums = {0};
     int target = 0;
-    string s = "";
+    string s = "leeeetcccccode";
 
     // call solution function
-    /*
+    
     Solution sol;
-    int ans = sol.function("arguments");
+    string ans = sol.makeFancyString(s);
 
     // print out answers 
     cout << ans;
-    */
+    
 
     return 0;
 }
