@@ -1,4 +1,6 @@
 # Leeetcode
+
 Repository to store my codes for leetcode problems.
 
-謹記：想好再開始寫，不然一定浪費一堆時間
+環境根據以下網站指示進行架設：
+[Get Started with C++ and MinGW-w64 in Visual Studio Code](https://code.visualstudio.com/docs/cpp/config-mingw)
