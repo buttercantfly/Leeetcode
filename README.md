@@ -1,6 +1,6 @@
-# Leeetcode
+### Leeetcode
 
-Repository to store my codes for leetcode problems.
+Repository to store my codes for solving leetcode problems (I just use it as a cload drive actually :D).
 
-環境根據以下網站指示進行架設：
+Basic vscode environment is built apon the following website: 
 [Get Started with C++ and MinGW-w64 in Visual Studio Code](https://code.visualstudio.com/docs/cpp/config-mingw)
